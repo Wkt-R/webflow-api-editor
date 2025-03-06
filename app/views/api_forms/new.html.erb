@@ -1,0 +1,46 @@
+<div class = "form-control">
+<%= form_with(url: api_forms_path, method: :post) do |f| %>
+  <div>
+    <%= f.label :stanowisko, "Stanowisko" %>
+    <div contenteditable="true" class="editable-textarea" id="stanowisko"></div>
+    <%= f.hidden_field :stanowisko, id: "stanowisko_hidden" %>
+  </div>
+
+  <div>
+    <%= f.label :lokalizacja, "Lokalizacja" %>
+    <%= f.select :lokalizacja, options_for_select(["List", "of", "your", "locations"]), {}, { id: "lokalizacja_select" } %>
+  </div>
+
+  <div>
+    <%= f.label :opis_stanowiska, "Opis stanowiska" %>
+    <div contenteditable="true" class="editable-textarea large" id="opis_stanowiska"></div>
+    <%= f.hidden_field :opis_stanowiska, id: "opis_stanowiska_hidden" %>
+  </div>
+
+  <div>
+    <%= f.label :aktywne, "Aktywne" %>
+    <%= f.check_box :aktywne %>
+  </div>
+
+  <%= f.submit "Save" %>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    function syncContent(id) {
+      let div = document.getElementById(id);
+      let hiddenInput = document.getElementById(id + "_hidden");
+
+      div.addEventListener("input", function() {
+        hiddenInput.value = div.innerHTML;
+      });
+
+      hiddenInput.value = div.innerHTML;
+    }
+
+    syncContent("stanowisko");
+    syncContent("opis_stanowiska");
+  });
+</script>
+
+</div>
